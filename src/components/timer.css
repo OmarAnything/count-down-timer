@@ -1,4 +1,21 @@
 .timer-container {
   display: flex;
   flex-direction: row;
+  height: 30px;
+  margin: 5px;
+  font-size: 10px;
 }
+
+.timer-display {
+  height: 20px;
+  width: 20px;
+  padding: 2px;
+  margin: 2px;
+  font-size: 16px;
+}
+
+.timer-input {
+  width: 30px;
+  height: 30xp;
+}
+

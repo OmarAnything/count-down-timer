@@ -1,7 +1,8 @@
 import { ChangeEventHandler, useCallback, useState } from "react"
 import "./timer.css"
 
-interface TimerProps {
+interface TimerProps
+{
   id: number;
   closeTimer(x: number): void;
 }
@@ -44,28 +45,36 @@ export const Timer: React.FC<TimerProps> = (props) =>
 
   }
 
-  const onCloseTimer = () => {
+  const onCloseTimer = () =>
+  {
     props.closeTimer(props.id)
   }
 
   return (
     <div className="timer-container">
-      <div>
+      <div className="timer-display">
         {timerActive ?
           <>{currentSeconds}</>
           :
-          <span>Timer is Currently not active</span>
+          "X"
         }
       </div>
       <input
+        className="timer-input"
         type="number"
-        width={200}
+        width={100}
+        height={100}
         onChange={onChangeHandler}
       />
-      <button onClick={onButtonClick}>
+      <button
+        className="timer-start-end-button"
+        onClick={onButtonClick}
+      >
         {timerActive ? "end" : "start"}
       </button>
-      <button onClick={onCloseTimer}>
+      <button
+        className="timer-close-button"
+        onClick={onCloseTimer}>
         X
       </button>
     </div>

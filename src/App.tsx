@@ -36,7 +36,7 @@ function App()
       <button onClick={onCloseHandler}>
         X
       </button>
-      {timerArr.map(x => <Timer id={x} closeTimer={onCloseTimer} />)}
+      {timerArr.map(x => <Timer key={x} id={x} closeTimer={onCloseTimer} />)}
     </>
   )
 }
