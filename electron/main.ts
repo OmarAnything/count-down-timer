@@ -57,7 +57,8 @@ function createWindow()
     win.loadFile(path.join(RENDERER_DIST, 'index.html'))
   }
 
-  win.webContents.openDevTools()
+  // uncomment to include devtools
+  // win.webContents.openDevTools()
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
