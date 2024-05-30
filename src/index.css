@@ -27,9 +27,8 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
   background-color: transparent;
+  width: 200px;
   -webkit-app-region: drag;
   user-select: none;
 }
@@ -41,6 +40,8 @@ h1 {
 
 input {
   -webkit-app-region: no-drag;
+  width: 40px;
+  height: 40px;
 }
 
 input::-webkit-outer-spin-button,
@@ -57,7 +58,6 @@ input[type=number] {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;

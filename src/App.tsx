@@ -29,15 +29,19 @@ function App()
   }
 
   return (
-    <>
-      <button onClick={onAddHandler}>
-        +
-      </button>
-      <button onClick={onCloseHandler}>
-        X
-      </button>
-      {timerArr.map(x => <Timer key={x} id={x} closeTimer={onCloseTimer} />)}
-    </>
+    <div className='main'>
+      <div className='main-buttons'>
+        <button className='standard-button' onClick={onAddHandler}>
+          +
+        </button>
+        <button className='standard-button' onClick={onCloseHandler}>
+          x
+        </button>
+      </div>
+      <div className='main-content'>
+        {timerArr.map(x => <Timer key={x} id={x} closeTimer={onCloseTimer} />)}
+      </div>
+    </div>
   )
 }
 

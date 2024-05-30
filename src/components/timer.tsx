@@ -23,6 +23,7 @@ export const Timer: React.FC<TimerProps> = (props) =>
       setCurrentSeconds(0)
       clearInterval(intervalId);
       setIntervalId(undefined);
+      setTime(undefined)
     }
     else
     {
@@ -67,13 +68,13 @@ export const Timer: React.FC<TimerProps> = (props) =>
         onChange={onChangeHandler}
       />
       <button
-        className="timer-start-end-button"
+        className="timer-start-end-button standard-button"
         onClick={onButtonClick}
       >
-        {timerActive ? "end" : "start"}
+        {timerActive ? "E" : "S"}
       </button>
       <button
-        className="timer-close-button"
+        className="timer-close-button standard-button"
         onClick={onCloseTimer}>
         X
       </button>

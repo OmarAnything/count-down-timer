@@ -29,11 +29,12 @@ let win: BrowserWindow | null
 function createWindow()
 {
   win = new BrowserWindow({
-    width: 250,
-    height: 100,
+    width: 200,
+    height: 200,
     frame: false,
     transparent: true,
     autoHideMenuBar: true,
+    // resizable: false,
     alwaysOnTop: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.mjs')
