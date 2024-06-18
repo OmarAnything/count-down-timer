@@ -10,7 +10,7 @@
     "build": "tsc && vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "publish": "electron-builder"
+    "publish": "electron-builder -p always"
   },
   "dependencies": {
     "react": "^18.2.0",
