@@ -1,8 +1,10 @@
 {
   "name": "counterdowntimer-react",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "author": "Omar-Anything",
+  "description": "a transparent hoverable window countdown looping timer",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
