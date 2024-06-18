@@ -22,7 +22,8 @@
   border-style: solid;
   border-color: white;
   margin: 1px;
-  padding: 0px;
+  padding: 0px;  
+  font-size: 10px;
   box-sizing: border-box;
 }
 
@@ -34,7 +35,7 @@
 
 .main-buttons {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 .main-content {

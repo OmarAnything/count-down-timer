@@ -6,6 +6,8 @@ function App()
 {
   const [currNum, setCurrNum] = useState<number>(0)
   const [timerArr, setTimerArr] = useState<number[]>([])
+  const [countUp, setCountUp] = useState<boolean>(false)
+  const [miniButtons, setButtonSize] = useState<boolean>(false)
 
   const onAddHandler = useCallback(() =>
   {
@@ -28,18 +30,35 @@ function App()
     setTimerArr(copy)
   }
 
+  const buttonClassName = !miniButtons ? 'standard-button' : 'mini-button'
+
+  const adjustButtons = () =>
+  {
+    setButtonSize(!miniButtons)
+  }
+
   return (
     <div className='main'>
       <div className='main-buttons'>
-        <button className='standard-button' onClick={onAddHandler}>
-          +
-        </button>
-        <button className='standard-button' onClick={onCloseHandler}>
-          x
-        </button>
+        <div className='main-buttons-left'>
+          <button className={buttonClassName} onClick={() => setCountUp(!countUp)}>
+            C
+          </button>
+        </div>
+        <div className='main-buttons-right'>
+          <button className={buttonClassName} onClick={onAddHandler}>
+            +
+          </button>
+          <button className={buttonClassName} onClick={onCloseHandler}>
+            x
+          </button>
+          <button className={buttonClassName} onClick={adjustButtons}>
+            =
+          </button>
+        </div>
       </div>
       <div className='main-content'>
-        {timerArr.map(x => <Timer key={x} id={x} closeTimer={onCloseTimer} countUp={false} />)}
+        {timerArr.map(x => <Timer key={x} id={x} closeTimer={onCloseTimer} countUp={countUp} />)}
       </div>
     </div>
   )

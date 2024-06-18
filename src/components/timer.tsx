@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useCallback, useState } from "react"
+import { ChangeEventHandler, useCallback, useEffect, useState } from "react"
 import "./timer.css"
 
 interface TimerProps
@@ -18,6 +18,13 @@ export const Timer: React.FC<TimerProps> = (props) =>
   const [currentSeconds, setCurrentSeconds] = useState<number>()
 
   const timerActive = !!intervalId
+
+  useEffect(() =>
+  {
+    if (time === undefined) return;
+    clearInterval(intervalId)
+    startIntervalWithTime(time, setCurrentSeconds, timerDuration, setIntervalId, countUp)
+  }, [countUp]);
 
   const onButtonClick = useCallback(() =>
   {
@@ -50,7 +57,7 @@ export const Timer: React.FC<TimerProps> = (props) =>
   const adjustTimer = (increase: boolean) =>
   {
     if (!time) return;
-    const newTime = modifyTime(increase, time);
+    const newTime = modifyTime(countUp, increase, time);
     setTime(newTime);
     clearInterval(intervalId)
     startIntervalWithTime(time, setCurrentSeconds, timerDuration, setIntervalId, countUp)
@@ -83,7 +90,7 @@ export const Timer: React.FC<TimerProps> = (props) =>
         onClick={onCloseTimer}>
         X
       </button>
-      <div>
+      <div className="timer-adjust-buttons">
         <button
           className="timer-close-button mini-button"
           onClick={() => adjustTimer(true)}>
@@ -120,9 +127,9 @@ function startIntervalWithTime(
   setIntervalId(id);
 }
 
-function modifyTime(increase: boolean, time: number)
+function modifyTime(countUp: boolean, increase: boolean, time: number)
 {
-  if (increase)
+  if (increase && !countUp || countUp && !increase)
   {
     return time + 1000
 

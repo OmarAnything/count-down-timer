@@ -18,3 +18,7 @@
   padding-left: 2px;
 }
 
+.timer-adjust-buttons {
+  width: min-content;
+}
+
