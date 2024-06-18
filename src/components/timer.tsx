@@ -5,14 +5,17 @@ interface TimerProps
 {
   id: number;
   closeTimer(x: number): void;
+  countUp: boolean
 }
 
 export const Timer: React.FC<TimerProps> = (props) =>
 {
+  const { closeTimer, id, countUp } = props;
+
   const [time, setTime] = useState<number>()
   const [timerDuration, setTimerDuration] = useState<number>(0)
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | undefined>();
-  const [currentSeconds, setCurrentSeconds] = useState<number>();
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | undefined>()
+  const [currentSeconds, setCurrentSeconds] = useState<number>()
 
   const timerActive = !!intervalId
 
@@ -29,26 +32,28 @@ export const Timer: React.FC<TimerProps> = (props) =>
     {
       const timerDate = Date.now()
       setTime(timerDate)
-      const id = setInterval(() =>
-      {
-        const curr = Date.now()
-        const origDate = time || timerDate
-        setCurrentSeconds(Math.floor((curr - origDate) / 1000) % timerDuration)
-      }, 100);
-      setIntervalId(id);
+      startIntervalWithTime(timerDate, setCurrentSeconds, timerDuration, setIntervalId, countUp);
     }
-  }, [intervalId, setIntervalId, timerDuration, currentSeconds, setCurrentSeconds])
+  }, [time, intervalId, setIntervalId, timerDuration, currentSeconds, setCurrentSeconds])
 
   const onChangeHandler: ChangeEventHandler = (event) =>
   {
     const value = (event.target as any).value;
     setTimerDuration(Number(value))
-
   }
 
   const onCloseTimer = () =>
   {
-    props.closeTimer(props.id)
+    closeTimer(id)
+  }
+
+  const adjustTimer = (increase: boolean) =>
+  {
+    if (!time) return;
+    const newTime = modifyTime(increase, time);
+    setTime(newTime);
+    clearInterval(intervalId)
+    startIntervalWithTime(time, setCurrentSeconds, timerDuration, setIntervalId, countUp)
   }
 
   return (
@@ -78,6 +83,49 @@ export const Timer: React.FC<TimerProps> = (props) =>
         onClick={onCloseTimer}>
         X
       </button>
+      <div>
+        <button
+          className="timer-close-button mini-button"
+          onClick={() => adjustTimer(true)}>
+          +
+        </button>
+        <button
+          className="timer-close-button mini-button"
+          onClick={() => adjustTimer(false)}>
+          -
+        </button>
+      </div>
     </div>
   )
+}
+function startIntervalWithTime(
+  time: number,
+  setCurrentSeconds: React.Dispatch<React.SetStateAction<number | undefined>>,
+  timerDuration: number,
+  setIntervalId: React.Dispatch<React.SetStateAction<NodeJS.Timeout | undefined>>,
+  countUp: boolean)
+{
+  const id = setInterval(() =>
+  {
+    const curr = Date.now();
+    if (countUp)
+    {
+      setCurrentSeconds(Math.floor((curr - time) / 1000) % timerDuration)
+    }
+    else
+    {
+      setCurrentSeconds(timerDuration - (Math.floor((curr - time) / 1000) % timerDuration))
+    }
+  }, 100);
+  setIntervalId(id);
+}
+
+function modifyTime(increase: boolean, time: number)
+{
+  if (increase)
+  {
+    return time + 1000
+
+  }
+  return time - 1000
 }

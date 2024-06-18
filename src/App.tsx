@@ -39,7 +39,7 @@ function App()
         </button>
       </div>
       <div className='main-content'>
-        {timerArr.map(x => <Timer key={x} id={x} closeTimer={onCloseTimer} />)}
+        {timerArr.map(x => <Timer key={x} id={x} closeTimer={onCloseTimer} countUp={false} />)}
       </div>
     </div>
   )
